@@ -2,7 +2,6 @@
 
 A minimal boilerplate for [Sapper](https://github.com/sveltejs/sapper).
 
-
 ## Getting started
 
 You can install dependencies and run the project in development mode with:
@@ -14,7 +13,6 @@ npm run dev
 ```
 
 Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
-
 
 ## Deployment
 
