@@ -1,6 +1,6 @@
 # Sapper boilerplate
 
-A minimal boilerplate for [Sapper](https://github.com/sveltejs/sapper).
+A small opinionated boilerplate for [Sapper](https://github.com/sveltejs/sapper) apps.
 
 ## Getting started
 
