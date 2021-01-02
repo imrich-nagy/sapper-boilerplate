@@ -4,6 +4,8 @@ import replace from "@rollup/plugin-replace";
 import commonjs from "@rollup/plugin-commonjs";
 import url from "@rollup/plugin-url";
 import svelte from "rollup-plugin-svelte";
+import sveltePreprocess from "svelte-preprocess";
+import autoprefixer from "autoprefixer";
 import babel from "@rollup/plugin-babel";
 import { terser } from "rollup-plugin-terser";
 import config from "sapper/config/rollup.js";
@@ -12,6 +14,9 @@ import pkg from "./package.json";
 const mode = process.env.NODE_ENV;
 const dev = mode === "development";
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
+const preprocess = sveltePreprocess({
+  postcss: { plugins: [autoprefixer] },
+});
 
 const onwarn = (warning, onwarn) =>
   (warning.code === "MISSING_EXPORT" && /'preload'/.test(warning.message)) ||
@@ -29,6 +34,7 @@ export default {
         "process.env.NODE_ENV": JSON.stringify(mode),
       }),
       svelte({
+        preprocess,
         compilerOptions: {
           dev,
           hydratable: true,
@@ -49,14 +55,7 @@ export default {
           extensions: [".js", ".mjs", ".html", ".svelte"],
           babelHelpers: "runtime",
           exclude: ["node_modules/@babel/**"],
-          presets: [
-            [
-              "@babel/preset-env",
-              {
-                targets: "> 0.25%, not dead",
-              },
-            ],
-          ],
+          presets: [["@babel/preset-env"]],
           plugins: [
             "@babel/plugin-syntax-dynamic-import",
             [
@@ -87,6 +86,7 @@ export default {
         "process.env.NODE_ENV": JSON.stringify(mode),
       }),
       svelte({
+        preprocess: preprocess,
         compilerOptions: {
           dev,
           generate: "ssr",
